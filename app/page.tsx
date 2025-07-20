@@ -1,61 +1,354 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { Download, Play, Pause, Volume2, RotateCcw, Settings, Star, Users, Zap, Shield, Music, Headphones, Guitar, Sliders, ChevronDown } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+
+  // Scroll transforms for parallax effects
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+
+  // Refs for scroll animations
+  const heroRef = useRef<HTMLElement>(null);
+  const screenshotRef = useRef<HTMLElement>(null);
+  const featuresRef = useRef<HTMLElement>(null);
+  const testimonialsRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
+
+  const heroInView = useInView(heroRef, { amount: 0.1 });
+  const screenshotInView = useInView(screenshotRef, { amount: 0.1 });
+  const featuresInView = useInView(featuresRef, { amount: 0.1 });
+  const testimonialsInView = useInView(testimonialsRef, { amount: 0.1 });
+  const ctaInView = useInView(ctaRef, { amount: 0.1 });
+
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Hero Section */}
-          <div className="mb-16">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6">
-              Slowdan
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-700 mb-8 font-medium">
-              Retro music slowdown and playback tool
-            </p>
-            <div className="max-w-2xl mx-auto mb-12">
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Slowdan lets you slow down, pitch shift, and play along with your favourite songs. 
+    <div className="min-h-screen relative">
+      {/* Global retro-grid background */}
+      <div className="fixed inset-0 retro-grid opacity-5 pointer-events-none"></div>
+      
+      {/* Hero Section */}
+      <motion.section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden retro-grid"
+        style={{ y: heroY, opacity: heroOpacity }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#faf5ed]/50 to-[#faf5ed]"></div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-5xl mx-auto text-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={heroInView ? { scale: 1, opacity: 1 } : {}}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="mb-8"
+            >
+              <div className="inline-flex items-center px-4 py-2 rounded-full glass-card text-sm font-medium text-gray-700 mb-6">
+                <span className="w-2 h-2 bg-[#33FF66] rounded-full mr-2 animate-pulse-slow"></span>
+                Personal software for music practice
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6">
+                <span className="bg-gradient-to-r from-gray-900 via-[#ff3399] to-gray-900 bg-clip-text text-transparent">
+                  Slowdan
+                </span>
+              </h1>
+
+              <p className="text-xl sm:text-2xl lg:text-3xl text-gray-600 mb-6 sm:mb-8 font-light leading-relaxed">
+                Slow Down. Pitch Up.<br />
+                <span className="text-[#ff3399] font-medium">Slow Jams, Quick Hands.</span>
               </p>
-            </div>
-            <Link href="/support">
-              <Button 
-                size="lg" 
-                className="bg-[#ff3399] hover:bg-[#e6007a] text-white font-semibold px-8 py-3 text-lg rounded-lg transition-colors"
-              >
-                Get Support
-              </Button>
-            </Link>
+
+              <p className="text-base sm:text-lg text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+                Bend time. Shift pitch. Own the track. <br />
+                Slowdan let's you plug in, lock in, and nail every note.'
+              </p>
+
+            </motion.div>
+
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={heroInView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            >
+              <Link href="/Slowdan-1.0.1.dmg" download>
+                <Button size="lg" className="gradient-pink text-white font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download for macOS
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Floating Elements */}
+            <motion.div
+              className="absolute top-20 left-10 w-16 h-16 gradient-green rounded-2xl opacity-20 animate-float"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+            <motion.div
+              className="absolute bottom-30 right-10 w-12 h-12 gradient-pink rounded-xl opacity-20 animate-float"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              style={{ animationDelay: "2s" }}
+            />
           </div>
-
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border border-gray-200/50 shadow-sm hover:shadow-md transition-shadow" style={{background: 'linear-gradient(135deg, #faf5ed 0%, #f2ede0 100%)'}}>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-[#33FF66] rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">⚡</span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Fast & Local</h3>
-                <p className="text-gray-600">All processing happens on your device. No internet required.</p>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200/50 shadow-sm hover:shadow-md transition-shadow" style={{background: 'linear-gradient(135deg, #faf5ed 0%, #f2ede0 100%)'}}>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-[#ff3399] rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">🎵</span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Pitch Perfect</h3>
-                <p className="text-gray-600">Slow down without changing pitch, or adjust both independently.</p>
-              </CardContent>
-            </Card>
-
-            
-          </div>
+          
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="absolute bottom-1 left-1/2 transform -translate-x-1/2 z-20"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 text-gray-600 hover:text-[#ff3399] transition-colors cursor-pointer"
+              onClick={() => screenshotRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <span className="text-sm font-medium ">Explore Features</span>
+              <ChevronDown className="w-5 h-5" />
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </motion.section>
+
+      {/* App Screenshot Section */}
+      <motion.section
+        ref={screenshotRef}
+        className="py-8 sm:py-16 relative overflow-hidden"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative max-w-3xl mx-auto"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#faf5ed] via-transparent to-[#faf5ed] z-10 pointer-events-none opacity-80" />
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100/20">
+              <Image
+                src="/slowdan-screen.png"
+                alt="Slowdan Application Interface"
+                width={1600}
+                height={960}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+          </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={screenshotInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 text-gray-500 hover:text-[#ff3399] transition-colors cursor-pointer"
+              onClick={() => featuresRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <span className="text-sm font-medium">See Features</span>
+              <ChevronDown className="w-5 h-5" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Features Section */}
+      <motion.section
+        ref={featuresRef}
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={featuresInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12 sm:mb-20"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
+              Practice At Your
+              <span className="block text-[#ff3399]">Own Pace</span>
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Independent speed and pitch control. Personal software crafted for guitarists
+              who want to master their craft without compromise.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {[
+              {
+                icon: Volume2,
+                title: "Independent Speed Control",
+                description: "Slow down from 0.5x to 2x speed without affecting pitch. Practice complex passages at your perfect tempo.",
+                color: "gradient-pink",
+                delay: 0.1
+              },
+              {
+                icon: Music,
+                title: "Two-Octave Pitch Range",
+                description: "Transpose across two full octaves. Play in any key without retuning, or find the perfect key for your voice.",
+                color: "gradient-green",
+                delay: 0.2
+              },
+              {
+                icon: Guitar,
+                title: "Guitar Input & Pan Controls",
+                description: "Plug in directly and mix your guitar into the track. Professional pan controls help you sit perfectly in the mix.",
+                color: "gradient-pink",
+                delay: 0.3
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ y: 50, opacity: 0 }}
+                animate={featuresInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.8, delay: feature.delay }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="group"
+              >
+                <Card className="glass-card border-0 h-full group-hover:shadow-xl group-hover:shadow-[#ff3399]/10 transition-all duration-500">
+                  <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
+                    <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 ${feature.color} rounded-2xl mx-auto mb-4 sm:mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                      <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">{feature.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Technical Stats */}
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={featuresInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mt-12 sm:mt-16 lg:mt-20"
+          >
+            <div className="grid md:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                { icon: Sliders, stat: "0.5x-2x", label: "Speed Range" },
+                { icon: Music, stat: "2 Octaves", label: "Pitch Range" },
+                { icon: Headphones, stat: "Low Latency", label: "Real-time Audio" },
+                { icon: Guitar, stat: "Direct Input", label: "Guitar Ready" }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={featuresInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                  className="text-center glass-card p-3 sm:p-4 lg:p-6 rounded-xl"
+                >
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 gradient-green rounded-xl mx-auto mb-2 sm:mb-4 flex items-center justify-center">
+                    <item.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+                  </div>
+                  <div className="text-base sm:text-lg lg:text-2xl font-bold text-gray-900">{item.stat}</div>
+                  <div className="text-xs sm:text-sm lg:text-base text-gray-600">{item.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+          
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={featuresInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 text-gray-500 hover:text-[#ff3399] transition-colors cursor-pointer"
+              onClick={() => ctaRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <span className="text-sm font-medium">Download Now</span>
+              <ChevronDown className="w-5 h-5" />
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      
+
+      {/* Final CTA Section */}
+      <motion.section
+        ref={ctaRef}
+        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 retro-grid opacity-5"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            animate={ctaInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
+              Personal Software for
+              <span className="block text-[#ff3399]">Personal Practice</span>
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
+              Crafted for musicians who want complete control over their practice sessions.
+              Download Slowdan and experience truly personal software.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link href="/Slowdan-1.0.1.dmg" download>
+                  <Button size="lg" className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
+                    <Download className="w-6 h-6 mr-3" />
+                    Download Slowdan
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <div className="text-center">
+                <div className="text-sm text-gray-500">macOS 10.15+</div>
+                <div className="text-sm text-gray-500">Version 1.0.1</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              {[
+                { icon: Music, label: "Speed Control" },
+                { icon: Sliders, label: "Pitch Control" },
+                { icon: Guitar, label: "Guitar Input" },
+                { icon: Headphones, label: "Pro Audio" }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={ctaInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="w-12 h-12 gradient-green rounded-xl mb-3 flex items-center justify-center">
+                    <item.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">{item.label}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
     </div>
   );
 }

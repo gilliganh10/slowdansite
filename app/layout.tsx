@@ -13,8 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Slowdan - Retro Music Slowdown Tool",
-  description: "Slowdan lets you slow down, pitch shift, and loop music for practice — all offline and local. Inspired by Japanese 80s tech.",
+  title: "Slowdan - Premium Music Practice Tool",
+  description: "The ultimate practice companion for guitarists and musicians. Slow down your favorite songs without changing pitch, loop difficult sections, and play along with precision. Inspired by 80s Japanese tech design.",
+  keywords: "music practice, guitar practice, slow down music, audio practice tool, musician app, guitar learning, music learning",
+  openGraph: {
+    title: "Slowdan - Premium Music Practice Tool",
+    description: "Master every note. Slow down, play along, level up with Slowdan.",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Slowdan - Premium Music Practice Tool",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Slowdan - Premium Music Practice Tool",
+    description: "Master every note. Slow down, play along, level up with Slowdan.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({
@@ -23,12 +43,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 overflow-x-hidden`}
       >
         <Header />
-        <main>{children}</main>
+        <main className="relative">{children}</main>
       </body>
     </html>
   );
