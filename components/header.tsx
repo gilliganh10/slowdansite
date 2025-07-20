@@ -78,7 +78,11 @@ export default function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link href="/Slowdan-1.0.1.dmg" download> 
+              <Link 
+                href="/Slowdan-1.0.1.dmg" 
+                onClick={() => { if (typeof window !== "undefined" && (window as any).plausible) (window as any).plausible("Slowdan Download") }} 
+                download
+              >
                 <Button className="gradient-pink text-white font-semibold px-6 py-2 rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
                   <Download className="w-4 h-4 mr-2" />
                   Download
