@@ -44,6 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+      <script defer data-domain="slowdan.com" src="https://plausible.io/js/script.file-downloads.outbound-links.js"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-900 overflow-x-hidden`}
       >
