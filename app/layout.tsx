@@ -14,29 +14,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Slowdan - Premium Music Practice Tool",
-  description: "The ultimate practice companion for guitarists and musicians. Slow down your favorite songs without changing pitch, loop difficult sections, and play along with precision. Inspired by 80s Japanese tech design.",
-  keywords: "music practice, guitar practice, slow down music, audio practice tool, musician app, guitar learning, music learning",
+  description: "The ultimate practice companion for guitarists and musicians. Slow down your favorite songs without changing pitch, loop difficult sections, and play along with precision.",
+  metadataBase: new URL('https://slowdan.com'),
   openGraph: {
     title: "Slowdan - Premium Music Practice Tool",
     description: "Master every note. Slow down, play along, level up with Slowdan.",
-    type: "website",
     url: "https://slowdan.com",
-    siteName: "Slowdan",
-    locale: "en_US",
     images: [
       {
-        url: "https://slowdan.com/slowdan-screen.png",
+        url: "/slowdan-screen.png",
         width: 1200,
-        height: 630,
-        alt: "Slowdan - Slow down to speed up.",
+        height: 627,
+        alt: "Slowdan - Premium Music Practice Tool",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Slowdan - Premium Music Practice Tool",
-    description: "Master every note. Slow down, play along, level up with Slowdan.",
-    images: ["https://slowdan.com/slowdan-screen.png"],
   },
 };
 
