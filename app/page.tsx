@@ -92,10 +92,7 @@ export default function Home() {
               transition={{ duration: 1, ease: "easeOut" }}
               className="mb-8"
             >
-              <div className="inline-flex items-center px-4 py-2 rounded-full glass-card text-sm font-medium text-gray-700 mb-6">
-                <span className="w-2 h-2 bg-[#33FF66] rounded-full mr-2 animate-pulse-slow"></span>
-                Personal software for music practice
-              </div>
+             
 
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6">
                 <span className="bg-gradient-to-r from-gray-900 via-[#ff3399] to-gray-900 bg-clip-text text-transparent">
@@ -236,7 +233,7 @@ export default function Home() {
               <span className="block text-[#ff3399]">Own Pace</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Independent speed and pitch control.  Built for guitarists
+              Independent speed and pitch control.  Crafted for guitarists
               who want to master their craft without compromise.
             </p>
           </motion.div>
@@ -325,46 +322,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
           >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="flex flex-col items-center gap-2 text-gray-500 hover:text-[#ff3399] transition-colors cursor-pointer"
-              onClick={() => ctaRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <span className="text-sm font-medium">Download Now</span>
-              <ChevronDown className="w-5 h-5" />
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-
-
-      {/* Final CTA Section */}
-      <motion.section
-        ref={ctaRef}
-        className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 retro-grid opacity-5"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={ctaInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Personal Software for
-              <span className="block text-[#ff3399]">Personal Practice</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
-              Crafted for musicians who want complete control over their practice sessions.
-              Download Slowdan and experience truly personal software.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
+            <Button
                   size="lg"
                   onClick={handleDownloadClick}
                   className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0"
@@ -372,38 +330,13 @@ export default function Home() {
                   <Download className="w-6 h-6 mr-3" />
                   Download Slowdan
                 </Button>
-              </motion.div>
-
-              <div className="text-center">
-                <div className="text-sm text-gray-500">macOS 10.15+</div>
-                <div className="text-sm text-gray-500">Version 1.0.1</div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {[
-                { icon: Music, label: "Speed Control" },
-                { icon: Sliders, label: "Pitch Control" },
-                { icon: Guitar, label: "Guitar Input" },
-                { icon: Headphones, label: "Pro Audio" }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={ctaInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                  className="flex flex-col items-center"
-                >
-                  <div className="w-12 h-12 gradient-green rounded-xl mb-3 flex items-center justify-center">
-                    <item.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">{item.label}</span>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         </div>
       </motion.section>
+
+
+
+      
 
       {/* Mac Only Modal */}
       <MacOnlyModal 

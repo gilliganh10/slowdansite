@@ -20,12 +20,15 @@ export const metadata: Metadata = {
     title: "Slowdan - Premium Music Practice Tool",
     description: "Master every note. Slow down, play along, level up with Slowdan.",
     type: "website",
+    url: "https://slowdan.com",
+    siteName: "Slowdan",
+    locale: "en_US",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/slowdan-screen.png",
         width: 1200,
         height: 630,
-        alt: "Slowdan - Premium Music Practice Tool",
+        alt: "Slowdan - Slow down to speed up.",
       },
     ],
   },
@@ -33,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Slowdan - Premium Music Practice Tool",
     description: "Master every note. Slow down, play along, level up with Slowdan.",
-    images: ["/og-image.jpg"],
+    images: ["/slowdan-screen.png"],
   },
 };
 
