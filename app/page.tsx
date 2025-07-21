@@ -236,7 +236,7 @@ export default function Home() {
               <span className="block text-[#ff3399]">Own Pace</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Independent speed and pitch control. Personal software crafted for guitarists
+              Independent speed and pitch control.  Built for guitarists
               who want to master their craft without compromise.
             </p>
           </motion.div>
