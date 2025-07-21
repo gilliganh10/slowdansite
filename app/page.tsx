@@ -32,7 +32,7 @@ export default function Home() {
     <div className="min-h-screen relative">
       {/* Global retro-grid background */}
       <div className="fixed inset-0 retro-grid opacity-5 pointer-events-none"></div>
-      
+
       {/* Hero Section */}
       <motion.section
         ref={heroRef}
@@ -78,8 +78,11 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
             >
-              <Link href="/Slowdan-1.0.1.dmg" download>
-                <Button size="lg" className="gradient-pink text-white font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
+              <Link
+                href="/Slowdan-1.0.1.dmg"
+                onClick={() => { if (typeof window !== "undefined" && (window as any).plausible) (window as any).plausible("Slowdan Download") }}
+                download
+              >                <Button size="lg" className="gradient-pink text-white font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
                   <Download className="w-5 h-5 mr-2" />
                   Download for macOS
                 </Button>
@@ -99,7 +102,7 @@ export default function Home() {
               style={{ animationDelay: "2s" }}
             />
           </div>
-          
+
           {/* Scroll Indicator */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -264,7 +267,7 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
-          
+
           {/* Scroll Indicator */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -285,7 +288,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      
+
 
       {/* Final CTA Section */}
       <motion.section
@@ -311,8 +314,11 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/Slowdan-1.0.1.dmg" download>
-                  <Button size="lg" className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
+              <Link 
+                href="/Slowdan-1.0.1.dmg" 
+                onClick={() => { if (typeof window !== "undefined" && (window as any).plausible) (window as any).plausible("Slowdan Download") }} 
+                download
+              >                  <Button size="lg" className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
                     <Download className="w-6 h-6 mr-3" />
                     Download Slowdan
                   </Button>
