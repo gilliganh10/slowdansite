@@ -7,9 +7,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Download, Play, Pause, Volume2, RotateCcw, Settings, Star, Users, Zap, Shield, Music, Headphones, Guitar, Sliders, ChevronDown } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
+import MacOnlyModal from "@/components/mac-only-modal";
+import { VideoModal } from "@/components/ui/modal";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
+  const [showMacModal, setShowMacModal] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   // Scroll transforms for parallax effects
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
@@ -27,6 +31,45 @@ export default function Home() {
   const featuresInView = useInView(featuresRef, { amount: 0.1 });
   const testimonialsInView = useInView(testimonialsRef, { amount: 0.1 });
   const ctaInView = useInView(ctaRef, { amount: 0.1 });
+
+  const isMacDesktop = () => {
+    if (typeof window === "undefined") return false;
+    
+    const platform = navigator.platform || '';
+    const userAgent = navigator.userAgent || '';
+    
+    // Check if it's a Mac but not iOS
+    const isMac = /Mac/.test(platform);
+    const isIOS = /iPhone|iPad|iPod/.test(userAgent);
+    
+    return isMac && !isIOS;
+  };
+
+  const handleDownloadClick = (e: React.MouseEvent) => {
+    // Always prevent default to handle the download manually
+    e.preventDefault();
+
+    if (!isMacDesktop()) {
+      setShowMacModal(true);
+      if (typeof window !== "undefined" && (window as any).plausible) {
+        (window as any).plausible("Non-Mac Download Attempt");
+      }
+    } else {
+      if (typeof window !== "undefined") {
+        // For Mac desktop, create a direct download link
+        const link = document.createElement('a');
+        link.href = '/Slowdan-1.0.1.dmg';
+        link.download = 'Slowdan-1.0.1.dmg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        if ((window as any).plausible) {
+          (window as any).plausible("Mac Download");
+        }
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -78,15 +121,22 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
             >
-              <Link
-                href="/Slowdan-1.0.1.dmg"
-                onClick={() => { if (typeof window !== "undefined" && (window as any).plausible) (window as any).plausible("Slowdan Download") }}
-                download
-              >                <Button size="lg" className="gradient-pink text-white font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
-                  <Download className="w-5 h-5 mr-2" />
-                  Download for macOS
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                onClick={handleDownloadClick}
+                className="gradient-pink text-white font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Download for macOS
+              </Button>
+              <Button
+                size="lg"
+                onClick={() => setShowVideoModal(true)}
+                className="bg-white/90 text-gray-900 font-semibold px-8 py-4 text-lg rounded-xl hover:shadow-lg hover:bg-white transition-all duration-300 border border-gray-200"
+              >
+                <Play className="w-5 h-5 mr-2" />
+                See it in Action
+              </Button>
             </motion.div>
 
             {/* Floating Elements */}
@@ -314,15 +364,14 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                href="/Slowdan-1.0.1.dmg" 
-                onClick={() => { if (typeof window !== "undefined" && (window as any).plausible) (window as any).plausible("Slowdan Download") }} 
-                download
-              >                  <Button size="lg" className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0">
-                    <Download className="w-6 h-6 mr-3" />
-                    Download Slowdan
-                  </Button>
-                </Link>
+                <Button
+                  size="lg"
+                  onClick={handleDownloadClick}
+                  className="gradient-pink text-white font-semibold px-12 py-6 text-xl rounded-xl hover:shadow-lg hover:shadow-pink-500/30 transition-all duration-300 border-0"
+                >
+                  <Download className="w-6 h-6 mr-3" />
+                  Download Slowdan
+                </Button>
               </motion.div>
 
               <div className="text-center">
@@ -355,6 +404,19 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Mac Only Modal */}
+      <MacOnlyModal 
+        isOpen={showMacModal}
+        onClose={() => setShowMacModal(false)}
+      />
+
+      {/* Video Trailer Modal */}
+      <VideoModal
+        isOpen={showVideoModal}
+        onClose={() => setShowVideoModal(false)}
+        videoId="rVUcjJeXWHM"
+      />
     </div>
   );
 }
