@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/slowdan-screen.png",
+        url: "https://slowdan.com/slowdan-screen.png",
         width: 1200,
         height: 630,
         alt: "Slowdan - Slow down to speed up.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Slowdan - Premium Music Practice Tool",
     description: "Master every note. Slow down, play along, level up with Slowdan.",
-    images: ["/slowdan-screen.png"],
+    images: ["https://slowdan.com/slowdan-screen.png"],
   },
 };
 
