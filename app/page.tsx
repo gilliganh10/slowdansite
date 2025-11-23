@@ -181,18 +181,32 @@ export default function Home() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative max-w-3xl mx-auto"
+            className="relative max-w-4xl mx-auto"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-[#faf5ed] via-transparent to-[#faf5ed] z-10 pointer-events-none opacity-80" />
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100/20">
-              <Image
-                src="/slowdan-screen.png"
-                alt="Slowdan Application Interface"
-                width={1600}
-                height={960}
-                className="w-full h-auto"
-                priority
-              />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+              {[
+                { src: "/screens/1.png", alt: "Slowdan Screen 1" },
+                { src: "/screens/2.png", alt: "Slowdan Screen 2" },
+                { src: "/screens/3.PNG", alt: "Slowdan Screen 3" }
+              ].map((screen, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ y: 50, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  className="rounded-lg overflow-hidden shadow-lg border border-gray-100/20 bg-white max-w-[280px] mx-auto"
+                >
+                  <Image
+                    src={screen.src}
+                    alt={screen.alt}
+                    width={280}
+                    height={560}
+                    className="w-full h-auto object-contain"
+                    priority={index === 0}
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
 

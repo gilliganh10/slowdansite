@@ -43,19 +43,21 @@ export default function Support() {
 
   const faqItems = [
     {
-      "question": "Can I use Slowdan with any music file?",
-      "answer": "Slowdan works with DRM-free music files only. This means you can use tracks you’ve purchased or own, but not those protected by streaming services like Apple Music or Spotify."
+      question: "Can I use Slowdan with Apple Music?",
+      answer: "Yes! Slowdan works with Apple Music tracks, but with some limitations. You can slow down Apple Music songs, but pitch shifting and other advanced effects are not available on DRM-protected tracks due to Apple's content protection restrictions. For full features including pitch control, use DRM-free audio files."
     },
-    
+    {
+      question: "Can I use guitar input with Apple Music tracks?",
+      answer: "Unfortunately, no. Guitar input is disabled when playing DRM-protected tracks (like Apple Music). This is a limitation imposed by Apple's DRM protection system, not Slowdan. Guitar input works perfectly with your own DRM-free audio files like iTunes purchases."
+    },
     {
       question: "What audio formats does Slowdan support?",
-      answer: "Slowdan supports all major audio formats including MP3, WAV, FLAC, AAC, and M4A. Simply drag and drop your files to get started."
+      answer: "Slowdan supports all major audio formats including MP3, WAV, FLAC, AAC, and M4A. Simply drag and drop your files to get started. For DRM-free files, all features including pitch shifting and guitar input are available."
     },
     {
       question: "Is my music data private?",
-      answer: "Absolutely. All processing happens locally on your device. Your music never leaves your computer - no uploads, no cloud storage, no tracking."
+      answer: "Absolutely. All audio processing happens locally on your device. Your music never leaves your computer - no uploads, no cloud storage. We only collect anonymous usage analytics to improve the app (see our Privacy Policy for details)."
     },
-    
   ];
 
   return (
